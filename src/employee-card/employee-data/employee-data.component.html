@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee cards</title>
+</head>
+
+<body>
+
+    <div class="search">
+        <input type="text" placeholder="Search by name" [(ngModel)]="SearchName" (input)="SearchEmp()">
+        <select name="SearchDept" [(ngModel)]="SearchDept" (change)="SearchEmp()"> 
+            <option value="">All Department</option>
+            <option value="IT">IT</option>
+            <option value="Design">Design</option>
+            <option value="Quality Assurance">Quality Assurance</option>
+            <option value="HR">HR</option>
+            <option value="Analytics">Analytics</option>
+        </select>
+        <button type="button" (click)="SearchEmp()">Search</button>
+        <button type="reset" (click)="OnClrear()">Clear</button>
+    </div>
+
+    <div class="container">
+        <div class="card" *ngFor="let emp of searchEmp" [class.flip]="flipp === emp.Eid" (click)="toggleData(emp.Eid)">
+            <div class="inside-card">
+                <div class="front">
+                    <div class="img">
+                        <img class="profile-design" [src]="emp.EProfile" [alt]="emp.EName">
+                    </div>
+                    <h4 style="margin-bottom: 8px;">{{ emp.EName }}</h4>
+                    <p>{{ emp.ETitle }}</p>
+                </div>
+                <div class="back">
+                    <p>Employee Name: {{ emp.EName }}</p>
+                    <p>Email: {{ emp.EMail }}</p>
+                    <p>Contact Number: {{ emp.EContact }}</p>
+                    <p>Years of Experience: {{ emp.Experience }}</p>
+                    <p>Technical Skills: {{ emp.ESkills }}</p>
+                    <p>Department: {{ emp.EDep }}</p>
+                    <p>Employee Description: {{ emp.EDesc }}</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="empty-data" *ngIf="searchEmp.length === 0">
+        <h1>No Data Found</h1>
+    </div>
+</body>
+
+</html>
